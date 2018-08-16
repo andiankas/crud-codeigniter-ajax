@@ -4,17 +4,22 @@
 	<meta charset="UTF-8">
 	<title>Belajar</title>
 	
-	<!-- bootstrap -->
 	
-	<link rel="stylesheet" href="<?php echo base_url() ?>assets/DataTables/css/dataTables.bootstrap.min.css">
+	<!-- jquery cdn -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<!-- bootstrap cdn -->
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	
+	<link rel="stylesheet" href="<?php echo base_url() ?>assets/DataTables/css/dataTables.bootstrap.min.css">
+	
+	
 </head>
 <body>
 	
@@ -24,7 +29,7 @@
 			<h3>Book Store</h3>
 		</center>
 
-		<button type="button" class="btn btn-primary" onclick="addBook()"><i class="glyphicon glyphicon-plus"></i> Add Book</button>
+		<button id="btnAdd" type="button" data-toggle="modal" class="btn btn-primary" onclick="add_book()"><i class="glyphicon glyphicon-plus"></i> Add Book</button>
 
 		<br><br>
 
@@ -54,16 +59,33 @@
 
 
 	<!-- jquery -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="<?php echo base_url() ?>assets/jquery/jquery-3.3.1.min.js"></script>
-	<script src="<?php echo base_url() ?>assets/bootstrap/js/bootstrap.min.js"></script>
 	<script src="<?php echo base_url() ?>assets/DataTables/js/jquery.dataTables.min.js"></script>
 	<script src="<?php echo base_url() ?>assets/DataTables/js/dataTables.bootstrap.min.js"></script>
+
+	
 	<!-- js -->
 	<script type="text/javascript">
+
+		// datatable
 		$(document).ready(function() {
 			$('#table_id').dataTable();
 		});
+		
+
+		// modal
+		var save_method;
+		var table;
+
+		// $("#btnAdd").click(function() {
+		// 	$("#modal_form").modal('show');
+
+		// });
+		function add_book()
+		{
+			save_method = 'add';
+			$('#form')[0].reset();
+			$('#modal_form').modal('show');
+		}
 	</script>
 	<div id="modal_form" class="modal fade" tabindex="-1" role="dialog">
 	  <div class="modal-dialog" role="document">
@@ -73,7 +95,9 @@
 	        <h4 class="modal-title">Modal title</h4>
 	      </div>
 	      <div class="modal-body form">
-	        <p>One fine body&hellip;</p>
+	        <form action="#" id="form">
+	        	
+	        </form>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
