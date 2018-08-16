@@ -66,42 +66,91 @@
 	<!-- js -->
 	<script type="text/javascript">
 
-		// datatable
+	// datatable
 		$(document).ready(function() {
 			$('#table_id').dataTable();
 		});
-		
+	// end datatable 
 
-		// modal
+	// modal
 		var save_method;
 		var table;
 
-		// $("#btnAdd").click(function() {
-		// 	$("#modal_form").modal('show');
-
-		// });
 		function add_book()
 		{
 			save_method = 'add';
 			$('#form')[0].reset();
 			$('#modal_form').modal('show');
 		}
+
+		function save()
+		{
+			var url;
+			if (save_method=="add") {
+				url = "<?php echo base_url('book/book_add') ?>";
+			}else {
+				url = "<?php echo base_url('book/book_update') ?>";
+			}
+
+			$.ajax({
+				url: url,
+				type: "POST",
+				data: $("#form").serialize(),
+				dataType: "JSON",
+				success: function(data){
+					$("#modal_form").modal("hide");
+					location.reload();
+				},
+				error: function(jqXHR,textStatus, errorThrown){
+					alert("Error adding / update data.");
+				}
+			});
+		}
+
 	</script>
 	<div id="modal_form" class="modal fade" tabindex="-1" role="dialog">
 	  <div class="modal-dialog" role="document">
 	    <div class="modal-content">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title">Modal title</h4>
+	        <h4 class="modal-title">ADD NEW BOOK</h4>
 	      </div>
 	      <div class="modal-body form">
-	        <form action="#" id="form">
-	        	
+	      	<!-- form -->
+	        <form action="#" id="form" class="form-horizontal">
+	        	<input type="hidden" name="book_id" value="">
+	        	<div class="form-body">
+	        		<div class="form-group">
+	        			<label for="book_isbn" class="control-label col-md-3">Book ISBN</label>
+	        			<div class="col-md-9">
+	        				<input type="text" class="form-control" id="book_isbn" name="book_isbn" placeholder="Book ISBN">
+	        			</div>
+	        		</div>
+	        		<div class="form-group">
+	        			<label for="book_title" class="control-label col-md-3">Book Title</label>
+	        			<div class="col-md-9">
+	        				<input type="text" class="form-control" id="book_title" name="book_title" placeholder="Book Title">
+	        			</div>
+	        		</div>
+	        		<div class="form-group">
+	        			<label for="book_author" class="control-label col-md-3">Book Author</label>
+	        			<div class="col-md-9">
+	        				<input type="text" class="form-control" id="book_author" name="book_author" placeholder="Book Author">
+	        			</div>
+	        		</div>
+	        		<div class="form-group">
+	        			<label for="book_category" class="control-label col-md-3">Book Category</label>
+	        			<div class="col-md-9">
+	        				<input type="text" class="form-control" id="book_category" name="book_category" placeholder="Book Category">
+	        			</div>
+	        		</div>
+	        	</div>
 	        </form>
+	        <!-- end form -->
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	        <button type="button" class="btn btn-primary">Save changes</button>
+	        <button type="button" onclick="save()" class="btn btn-primary">Submit</button>
 	      </div>
 	    </div><!-- /.modal-content -->
 	  </div><!-- /.modal-dialog -->
