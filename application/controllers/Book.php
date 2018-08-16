@@ -11,7 +11,13 @@ class Book extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('book_view');
+		$book = $this->book_model->get_all_book('books')->result();
+
+		$data = array(
+			'book' => $book
+		);
+
+		$this->load->view('book_view',$data);
 	}
 
 	public function book_add()

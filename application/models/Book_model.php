@@ -11,6 +11,16 @@ class Book_model extends CI_Model {
 		$this->db->insert($this->table, $data);
 		return $this->db->insert_id();
 	}
+
+	// ambil data dari table
+	public function get_all_book($table)
+	{
+		$this->db->select('*');
+		$this->db->from($table);
+		$this->db->order_by('book_id','DESC');
+
+		return $query = $this->db->get();	
+	}
 	
 
 }

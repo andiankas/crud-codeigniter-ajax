@@ -45,14 +45,16 @@
 				</tr>
 			</thead>
 			<tbody>
+				<?php $no = 1; ?>
+				<?php foreach ($book as $book) : ?>
 				<tr>
-					<td>1</td>
-					<td>1001</td>
-					<td>Aku Bukan Pujangga</td>
-					<td>Reza Panggabean</td>
-					<td>Fiksi</td>
-					<td></td>
+					<td><?php echo $no++ ?></td>
+					<td><?php echo $book->book_isbn ?></td>
+					<td><?php echo $book->book_title ?></td>
+					<td><?php echo $book->book_author ?></td>
+					<td><?php echo $book->book_category ?></td>
 				</tr>
+				<?php endforeach; ?>
 			</tbody>
 		</table>
 	</div>
