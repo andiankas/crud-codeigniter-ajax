@@ -53,6 +53,10 @@
 					<td><?php echo $book->book_title ?></td>
 					<td><?php echo $book->book_author ?></td>
 					<td><?php echo $book->book_category ?></td>
+					<td>
+						<button class="btn btn-warning btn-sm" onclick="edit_book(<?php echo $book->book_id ?>)"><i class="glyphicon glyphicon-pencil"></i></button>
+						<button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></button>
+					</td>
 				</tr>
 				<?php endforeach; ?>
 			</tbody>
@@ -85,6 +89,7 @@
 			$('#modal_form').modal('show');
 		}
 
+		// insert to database
 		function save()
 		{
 			var url;
@@ -103,6 +108,35 @@
 					$("#modal_form").modal("hide");
 					location.reload();
 				},
+				error: function(jqXHR,textStatus, errorThrown){
+					alert("Error adding / update data.");
+				}
+			});
+		}
+
+		// edit
+		function edit_book(id)
+		{
+			save_method = 'update';
+			$('#form')[0].reset();
+
+			// load data dari ajax
+			$.ajax({
+				url: "<?php echo base_url('book/ajax_edit/') ;?>/"+id,
+				type: "GET",
+				dataType: "JSON",
+				success: function(data){
+					$('[name="book_id"]').val(data.book_id);
+					$('[name="book_isbn"]').val(data.book_isbn);
+					$('[name="book_title"]').val(data.book_title);  
+					$('[name="book_author"]').val(data.book_author);
+					$('[name="book_category"]').val(data.book_category);
+
+					$('#modal_form').modal('show');
+
+					$('#modal_title').text('Edit Book');
+				},
+
 				error: function(jqXHR,textStatus, errorThrown){
 					alert("Error adding / update data.");
 				}
