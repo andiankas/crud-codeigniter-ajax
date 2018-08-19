@@ -38,6 +38,14 @@ class Book_model extends CI_Model {
 		return $this->db->affected_rows();
 	}
 
+
+	// delete
+	public function delete_by_id($id)
+	{
+		$this->db->where('book_id', $id);
+		$this->db->delete($this->table);
+	}
+
 }
 
 /* End of file Book_model.php */

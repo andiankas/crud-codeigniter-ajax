@@ -56,6 +56,13 @@ class Book extends CI_Controller {
 		$this->book_model->book_update(array('book_id'	=> $this->input->post('book_id')), $data);
 		echo json_encode(array("status" => TRUE));
 	}
+
+	// delete
+	public function book_delete($id)
+	{
+		$this->book_model->delete_by_id($id);
+		echo json_encode(array("status" => TRUE));
+	}
 }
 
 /* End of file Book.php */

@@ -54,8 +54,8 @@
 					<td><?php echo $book->book_author ?></td>
 					<td><?php echo $book->book_category ?></td>
 					<td>
-						<button class="btn btn-warning btn-sm" onclick="edit_book(<?php echo $book->book_id ?>)"><i class="glyphicon glyphicon-pencil"></i></button>
-						<button class="btn btn-danger btn-sm"><i class="glyphicon glyphicon-trash"></i></button>
+						<button class="btn btn-warning btn-sm" onclick="edit_book(<?php echo $book->book_id ?>)" ><i class="glyphicon glyphicon-pencil"></i></button>
+						<button class="btn btn-danger btn-sm" onclick="delete_book(<?php echo $book->book_id ?>)" ><i class="glyphicon glyphicon-trash"></i></button>
 					</td>
 				</tr>
 				<?php endforeach; ?>
@@ -141,6 +141,26 @@
 					alert("Error adding / update data.");
 				}
 			});
+		}
+
+		// delete
+		function delete_book(id)
+		{
+			if (confirm("Are you sure delete this data?")) {
+				// ajax delete data dari database
+
+				$.ajax({
+					url: "<?php echo base_url('book/book_delete') ?>/"+id,
+					type: "POST",
+					dataType: "JSON",
+					success: function(data){
+						location.reload();
+					},
+					error: function(jqXHR,textStatus, errorThrown){
+						alert("Error deleting data.");
+					}
+				});
+			}
 		}
 
 	</script>
